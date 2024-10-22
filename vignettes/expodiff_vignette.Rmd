@@ -1,0 +1,141 @@
+---
+title: "Exploring World Expos and Specialised Expos with `expodiff`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to expodiff}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+The `expodiff` package provides tools for exploring the differences between World Expos and Specialised Expos. It includes an interactive Shiny app and data sets that can be used for further analysis and visualization.
+
+In this vignette, we will:
+1. Walk through how to install and launch the Shiny app.
+2. Explore the data sets included in the package.
+3. Demonstrate how to visualize and analyze the data beyond the app.
+
+
+# Installation
+
+Install the package directly from GitHub:
+
+```{r eval = FALSE}
+devtools::install_github("ETC5523-2024/assignment-4-packages-and-shiny-apps-cherylbunny")
+```
+
+Load the package:
+
+```{r}
+library(expodiff)
+```
+
+
+# 1. Launching the Shiny App
+
+The main feature of `expodiff` is the Shiny app. This app provides interactive visualizations to compare World Expos and Specialised Expos.
+
+Launch the app using:
+
+```{r eval = FALSE}
+launch_expodiff()
+```
+
+Once launched, the app provides the following interactive plots:
+
+* Average Attending Countries: Visualizes the number of countries attending expos over time.
+
+* Area Size vs. Visitors: Explores the relationship between area size and the number of visitors.
+
+* Top Themes: Displays the most popular expo themes based on frequency.
+
+* Economic Factors: Shows a summary table comparing World and Specialised expos.
+
+
+# 2. Working with the Dataset
+
+Beyond the Shiny app, the package includes a combined dataset (combined_data) that allows you to perform your own analyses.
+
+You can access the data set as follows:
+
+```{r}
+data("combined_data", package = "expodiff")
+```
+
+Inspect the data set: 
+
+```{r eval = FALSE}
+str(combined_data)
+```
+
+The data set contains three components:
+
+* `top_words_world`: Top 10 themes in World Expos.
+
+* `top_words_spec`: Top 10 themes in Specialised Expos.
+
+* `summary_combined`: A summary of economic factors like cost, visitors, and attending countries.
+
+
+# 3. Visualizing the Data
+
+## 3.1 Plotting Attending Countries Over Time
+
+Example of how to visualize the average number of attending countries over time for both expo types:
+
+This plot shows the difference in the average number of attending countries between World Expos and Specialised Expos over time.
+
+```{r eval = FALSE}
+library(tidyverse)
+library(ggplot2)
+
+avg_attend_combined <- combined_data$summary_combined
+
+ggplot(combined_data$summary_combined, aes(x = mean_cost, y = mean_visitors, color = expo_type)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  labs(title = "Mean Cost vs Mean Visitors", x = "Mean Cost", y = "Mean Visitors")
+```
+
+## 3.2 Exploring Economic Factors
+
+Instead of manually creating a comparison of economic factors between expo types, use `get_econ_sum()` function to retrieve the economic summary for each expo type. This table highlights differences in economic scale between World and Specialised Expos, providing insights into costs and attendance.
+
+```{r, message=FALSE}
+library(tidyverse)
+
+# Retrieve economic summaries for both expo types
+world_econ <- get_econ_sum("World Expo")
+spec_econ <- get_econ_sum("Specialised Expo")
+
+# Combine summaries into a single dataset for comparison
+econ_data <- rbind(
+  world_econ %>% mutate(expo_type = "World Expo"),
+  spec_econ %>% mutate(expo_type = "Specialised Expo")
+)
+
+econ_data 
+```
+
+# 3.3 Retrieve the Top Expo Themes
+
+The `get_top_themes` function allows you to retrieve the top themes for World and Specialised Expos:
+
+```{r}
+# Get top themes for World Expo
+world_themes <- get_top_themes("World Expo")
+print(world_themes)
+
+# Get top themes for Specialised Expo
+spec_themes <- get_top_themes("Specialised Expo")
+print(spec_themes)
+```
+
+
+
+
+# Conclusion 
+
+The `expodiff` package offers a robust toolset for exploring and visualizing data from both World and Specialised Expos, whether using the Shiny app for interactive data exploration or working directly with the data sets for analysis. 
+
