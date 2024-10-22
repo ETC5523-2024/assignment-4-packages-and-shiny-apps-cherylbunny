@@ -9,7 +9,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%", 
+  message = FALSE, 
+  warning = FALSE
 )
 ```
 
@@ -31,11 +33,12 @@ devtools::install_github("ETC5523-2024/assignment-4-packages-and-shiny-apps-cher
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to load the library `expodiff` and launch the shiny App: 
 
-```{r example}
+```{r example, eval = FALSE}
+# Load library 
 library(expodiff)
-# Launch the Shiny app
+# Launch Shiny App 
 launch_expodiff()
 ```
 
@@ -50,16 +53,16 @@ The Shiny app provides various visualizations and comparisons, such as:
 
 The data behind the expodiff package includes:
 
-* World Expo and Specialised Expo data: covering attending countries, visitors, cost, area, and themes.
+* World Expo and Specialised Expo data: Covering attending countries, visitors, cost, area, and themes.
 
-* Interactive visualizations: using plotly and ggplot2 to create responsive and dynamic charts.
+* Interactive visualizations: Using plotly and ggplot2 to create responsive and dynamic charts.
 
-* Economic analysis: a summary table comparing cost, visitors, and attending countries for World Expos and Specialised Expos.
+* Economic analysis: A summary table comparing cost, visitors, and attending countries for World Expos and Specialised Expos.
 
 ## Example of Data Summary
 
 You can summarize the built-in data sets:
-```{r}
+```{r, cache = TRUE}
 # Load the combined dataset
 data("combined_data", package = "expodiff")
 
