@@ -24,7 +24,7 @@ The goal of expodiff is to provide an interactive exploration of World Expos and
 
 ## Installation
 
-You can install the development version of expodiff from [GitHub](https://github.com/) with:
+You can install the development version of expodiff from [GitHub](https://github.com/) with:usethis::use_mit_license("Your Name")
 
 ``` r
 # install.packages("devtools")
