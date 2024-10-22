@@ -1,12 +1,11 @@
 Package: expodiff
-Title: Package for Exploring World Expos and Specialised Expo data 
+Title: Package for Exploring World Expos and Specialised Expo data
 Version: 0.1.0
 Authors@R: 
     person("Yiran", "Yao", , "yyao0066@student.monash.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: This package includes a dataset of world expos and specialised expo, along with a Shiny app to explore the data.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
@@ -17,3 +16,9 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
 LazyData: true
+Imports: 
+    shiny,
+    ggplot2,
+    dplyr,
+    plotly,
+    tidyr
