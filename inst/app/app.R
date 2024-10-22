@@ -7,44 +7,58 @@ library(gt)
 
 data("combined_data", package = "expodiff")
 
+top_words_world <- combined_data$top_words_world
+top_words_spec <- combined_data$top_words_spec
+summary_combined <- combined_data$summary_combined
+
 # UI
 ui <- navbarPage(
   title = "Expo Data Dashboard",
-
+  
+  # Add CSS
+  tags$head(
+    tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
+  ),
+  
   # First Tab: Average Attending Countries
   tabPanel("Average Attending Countries",
            sidebarLayout(
              sidebarPanel(
                checkboxGroupInput("expo_type", "Select Expo Type(s):",
                                   choices = c("World Expo", "Specialised Expo"),
-                                  selected = "World Expo")
+                                  selected = "World Expo"),
+               helpText("Select Expo type to display the average attending countries over time.")
              ),
              mainPanel(
-               plotlyOutput("attending_countries_plot")
+               plotlyOutput("attending_countries_plot"),
+               textOutput("plot_description")
              )
            )
   ),
-
+  
   # Second Tab: Area Size vs. Visitors (Side-by-Side)
   tabPanel("Area vs. Visitors",
            fluidRow(
              column(6, plotlyOutput("area_plot_world")),
              column(6, plotlyOutput("area_plot_specialised"))
-           )
+           ),
+           helpText("Comparison of the area size of the exposition with the number of visitors for both World and Specialised Expos.")
   ),
-
+  
   # Third Tab: Top Themes
   tabPanel("Top Themes",
            fluidRow(
              column(6, plotOutput("top_words_world")),
              column(6, plotOutput("top_words_spec"))
-           )
+           ),
+           helpText("The most common themes for World and Specialised Expos.")
   ),
-
+  
   # Fourth Tab: Economic Factors
   tabPanel("Economic Factors",
            fluidRow(
-             column(12, gt_output("economic_table"))
+             column(12, gt_output("economic_table")),
+             helpText("Key economic factors (cost, visitors, attending countries) for World and Specialised Expos.")
            )
   )
 )
@@ -52,6 +66,15 @@ ui <- navbarPage(
 
 # Server
 server <- function(input, output) {
+  
+  # Example description for the output plot
+  output$plot_description <- renderText({
+    if(input$expo_type == "World Expo") {
+      "This plot shows the average number of attending countries over time for World Expos."
+    } else {
+      "This plot shows the average number of attending countries over time for Specialised Expos."
+    }
+  })
 
   # First Plot: Average Attending Countries Over Time
   output$attending_countries_plot <- renderPlotly({
