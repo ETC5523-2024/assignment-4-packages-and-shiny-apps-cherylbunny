@@ -15,7 +15,7 @@ data exploration and interactive visualizations.
 ## Installation
 
 You can install the development version of expodiff from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/) with:usethis::use_mit_license(“Your Name”)
 
 ``` r
 # install.packages("devtools")
@@ -80,3 +80,8 @@ summary(combined_data$summary_combined)
 #>  3rd Qu.:13.68   3rd Qu.:43.63            3rd Qu.:31.25             
 #>  Max.   :15.50   Max.   :45.89            Max.   :34.00
 ```
+
+# Documentation
+
+Full documentation for the package is available at:
+<https://etc5523-2024.github.io/assignment-4-packages-and-shiny-apps-cherylbunny/index.html>
