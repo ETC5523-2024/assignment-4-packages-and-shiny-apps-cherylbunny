@@ -70,4 +70,7 @@ data("combined_data", package = "expodiff")
 summary(combined_data$summary_combined)
 ```
 
+# Documentation
+
+Full documentation for the package is available at: https://etc5523-2024.github.io/assignment-4-packages-and-shiny-apps-cherylbunny/index.html
 
